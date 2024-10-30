@@ -43,12 +43,11 @@ function ComingSoon() {
         top: '0',
         left: '0'
       }}>
-        <h1 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '0', color: '#E76F51' }}>Learnova</h1>
+        <h1 className="header-logo" style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '0', color: '#E76F51' }}>Learnova</h1>
         <img src="/learnovaicon.png" alt="icon" style={{ width: '24px', height: '24px', marginLeft: '8px' }} />
       </div>
-
       {/* Hero Section */}
-      <div style={{
+      <div className="hero-section" style={{
         padding: '50px 20px',
         backgroundColor: '#F8FAFC',
         textAlign: 'center',
@@ -58,7 +57,7 @@ function ComingSoon() {
         <p style={{ fontSize: '1.2em', marginTop: '10px' }}>
           Learn something new with an <span style={{ color: '#E76F51' }}>AI Study Guide</span> or <span style={{ color: '#E76F51' }}>create courses</span> for yourself and others
         </p>
-        <button style={{
+        <button className="button" style={{
           marginTop: '20px',
           padding: '10px 20px',
           fontSize: '1em',
@@ -88,7 +87,7 @@ function ComingSoon() {
           { title: 'Flashcards', imgSrc: '/flashcards.webp' },
           { title: 'Quizzes', imgSrc: '/quizzes.webp' }
         ].map((card, index) => (
-          <div key={index} style={{
+          <div key={index} className="informational-card" style={{
             padding: '20px',
             borderRadius: '10px',
             textAlign: 'center',
@@ -97,14 +96,14 @@ function ComingSoon() {
             boxSizing: 'border-box',
           }}>
             <img src={card.imgSrc} alt={card.title} style={{ width: '100%', borderRadius: '10px' }} />
-            <h3 style={{ color: '#333', marginTop: '10px' }}>{card.title}</h3>
+            <h3 style={{ color: '#ffff', marginTop: '10px' }}>{card.title}</h3>
           </div>
         ))}
       </div>
 
       {/* Form Section */}
-      <div style={{ maxWidth: '600px', margin: '20px auto', padding: '30px' }}>
-        <h3 style={{ color: '#000', fontWeight: 'bold', marginBottom: '10px', textAlign: 'center', marginBottom: '15px' }}>
+      <div className="form-section" style={{ maxWidth: '600px', margin: '20px auto', padding: '30px' }}>
+        <h3 style={{ color: '#ffff', fontWeight: 'bold', marginBottom: '10px', textAlign: 'center' , marginBottom: '15px'}}>
           Stay in the know
         </h3>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -193,7 +192,7 @@ function ComingSoon() {
         </div>
       </div>
 
-      {/* Keyframes for scrolling animation */}
+      {/* Keyframes and Media Queries */}
       <style>
         {`
           @keyframes scrollMain {
@@ -201,33 +200,68 @@ function ComingSoon() {
             100% { transform: translateX(-100%); }
           }
 
-          /* Media queries for responsiveness */
+          /* Media Queries for Responsive Design */
           @media (max-width: 768px) {
             h1 {
-              font-size: 2.5em;
+              font-size: 2em;
             }
+            
+            h3 {
+              font-size: 1em;
+            }
+
             .hero-section p {
               font-size: 1em;
             }
-            .hero-section button {
-              padding: 8px 16px;
+
+            .button {
               font-size: 0.9em;
+              padding: 8px 16px;
+            }
+
+            .informational-card {
+              width: 150px;
+              padding: 15px;
+            }
+
+            .header-logo {
+              font-size: 1.2em;
+            }
+
+            .form-section {
+              padding: 20px;
             }
           }
 
           @media (max-width: 480px) {
             h1 {
-              font-size: 2em;
+              font-size: 1.8em;
             }
+
+            h3 {
+              font-size: 0.9em;
+            }
+
             .hero-section p {
               font-size: 0.9em;
             }
-            .hero-section button {
-              padding: 6px 12px;
+
+            .button {
               font-size: 0.8em;
+              padding: 6px 12px;
             }
-            .informational-cards div {
-              width: 100%; /* Full width for smaller devices */
+
+            .informational-card {
+              width: 130px;
+              padding: 10px;
+            }
+
+            .header-logo {
+              font-size: 1em;
+            }
+
+            .form-section {
+              padding: 15px;
             }
           }
         `}
@@ -237,3 +271,4 @@ function ComingSoon() {
 }
 
 export default ComingSoon;
+
