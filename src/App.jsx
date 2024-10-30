@@ -6,7 +6,6 @@ function ComingSoon() {
     name: '',
     email: '',
     useCase: '',
-  
   });
 
   const handleChange = (e) => {
@@ -21,13 +20,12 @@ function ComingSoon() {
       name: formData.name,
       email: formData.email,
       useCase: formData.useCase,
-    
     };
 
     try {
       await emailjs.send('service_zj83it4', 'template_ah6yhx7', templateParams, 'QdHE4aDaQfosHBaIa');
       alert('Thank you! We’ll keep you updated.');
-      setFormData({ name: '', email: '', useCase: ''});
+      setFormData({ name: '', email: '', useCase: '' });
     } catch (error) {
       console.error('Error sending email:', error);
       alert('Failed to submit. Please try again.');
@@ -48,6 +46,7 @@ function ComingSoon() {
         <h1 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '0', color: '#E76F51' }}>Learnova</h1>
         <img src="/learnovaicon.png" alt="icon" style={{ width: '24px', height: '24px', marginLeft: '8px' }} />
       </div>
+
       {/* Hero Section */}
       <div style={{
         padding: '50px 20px',
@@ -104,7 +103,10 @@ function ComingSoon() {
       </div>
 
       {/* Form Section */}
-      <div style={{ maxWidth: '600px', margin: '20px auto', padding: '20px' }}>
+      <div style={{ maxWidth: '600px', margin: '20px auto', padding: '30px' }}>
+        <h3 style={{ color: '#000', fontWeight: 'bold', marginBottom: '10px', textAlign: 'center', marginBottom: '15px' }}>
+          Stay in the know
+        </h3>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <input
             type="text"
@@ -197,6 +199,36 @@ function ComingSoon() {
           @keyframes scrollMain {
             0% { transform: translateX(0); }
             100% { transform: translateX(-100%); }
+          }
+
+          /* Media queries for responsiveness */
+          @media (max-width: 768px) {
+            h1 {
+              font-size: 2.5em;
+            }
+            .hero-section p {
+              font-size: 1em;
+            }
+            .hero-section button {
+              padding: 8px 16px;
+              font-size: 0.9em;
+            }
+          }
+
+          @media (max-width: 480px) {
+            h1 {
+              font-size: 2em;
+            }
+            .hero-section p {
+              font-size: 0.9em;
+            }
+            .hero-section button {
+              padding: 6px 12px;
+              font-size: 0.8em;
+            }
+            .informational-cards div {
+              width: 100%; /* Full width for smaller devices */
+            }
           }
         `}
       </style>
