@@ -1,8 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
+
+//todo need banner more distingusihed 
+//capitilze header text
+// structure od rest of rest of the app
+//get assest from upwork 
+// backend stucture 
 
 function ComingSoon() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [typedText, setTypedText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [cycleComplete, setCycleComplete] = useState(false);
+
+  const words = ["Learning", "Studying", "Teaching"];
+
+  useEffect(() => {
+    if (cycleComplete) return; // Stop cycling if completed
+
+    const currentWord = words[currentWordIndex];
+    let typingSpeed = 150;
+
+    if (isDeleting) {
+      typingSpeed /= 2;
+    }
+
+    const handleTyping = setTimeout(() => {
+      if (!isDeleting && typedText === currentWord) {
+        setIsDeleting(true);
+      } else if (isDeleting && typedText === '') {
+        setIsDeleting(false);
+        if (currentWordIndex === words.length - 1) {
+          setCycleComplete(true); // Stop after the last word
+          setTypedText("Learning"); // Set final text
+        } else {
+          setCurrentWordIndex((prevIndex) => prevIndex + 1);
+        }
+      } else {
+        setTypedText(currentWord.substring(0, typedText.length + (isDeleting ? -1 : 1)));
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(handleTyping);
+  }, [typedText, isDeleting, currentWordIndex, cycleComplete]);
 
   const toggleTheme = () => {
     setIsDarkMode((prevMode) => !prevMode);
@@ -44,7 +85,7 @@ function ComingSoon() {
         fontFamily: 'Arial, sans-serif',
         color: isDarkMode ? '#FFF' : '#333',
         backgroundColor: isDarkMode ? '#242424' : '#F8FAFC',
-        overflowX: 'hidden',  // Hide any horizontal overflow
+        overflowX: 'hidden', // Hide any horizontal overflow
         width: '100%',       // Full viewport width
         minHeight: '100vh',
         transition: 'background-color 0.3s ease, color 0.3s ease',
@@ -78,13 +119,15 @@ function ComingSoon() {
         </button>
       </div>
 
-      {/* Hero Section */}
+      {/* Hero Section with Typing Animation */}
       <div className="hero-section" style={{
         padding: '50px 20px',
         textAlign: 'center',
         width: '100%'
       }}>
-        <h1 style={{ fontSize: '3em', fontWeight: 'bold' }}>Learning with no limits</h1>
+        <h1 style={{ fontSize: '3em', fontWeight: 'bold' }}>
+          {typedText} with no limits
+        </h1>
         <p style={{ fontSize: '1.2em', marginTop: '10px' }}>
           Learn something new with an <span style={{ color: '#E76F51' }}>AI Study Guide</span> or <span style={{ color: '#E76F51' }}>create courses</span> for yourself and others
         </p>
@@ -96,12 +139,15 @@ function ComingSoon() {
           color: '#fff',
           border: 'none',
           borderRadius: '5px',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          marginRight: '3vw'
         }}>
           Join for Free
         </button>
       </div>
 
+
+      {/* Rest of the code remains the same */}
       {/* Informational Cards */}
       <div style={{
         display: 'flex',
@@ -174,6 +220,7 @@ function ComingSoon() {
               border: 'none',
               borderRadius: '5px',
               cursor: 'pointer',
+            
             }}
           >
             Get Notified
