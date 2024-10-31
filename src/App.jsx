@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
 
 function ComingSoon() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -33,23 +39,48 @@ function ComingSoon() {
   };
 
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', color: '#333', overflow: 'hidden' }}>
-      {/* Header with Logo */}
+    <div
+      style={{
+        fontFamily: 'Arial, sans-serif',
+        color: isDarkMode ? '#FFF' : '#333',
+        backgroundColor: isDarkMode ? '#242424' : '#F8FAFC',
+        overflowX: 'hidden',  // Hide any horizontal overflow
+        width: '100%',       // Full viewport width
+        minHeight: '100vh',
+        transition: 'background-color 0.3s ease, color 0.3s ease',
+      }}
+    >
+      {/* Header with Logo and Theme Toggle */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
         padding: '20px',
         position: 'absolute',
         top: '0',
-        left: '0'
+        left: '0',
+        width: '100%',
+        justifyContent: 'space-between',
       }}>
-        <h1 className="header-logo" style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '0', color: '#E76F51' }}>Learnova</h1>
-        <img src="/learnovaicon.png" alt="icon" style={{ width: '24px', height: '24px', marginLeft: '8px' }} />
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <h1 className="header-logo" style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '0', color: '#E76F51' }}>Learnova</h1>
+          <img src="/learnovaicon.png" alt="icon" style={{ width: '24px', height: '24px', marginLeft: '8px' }} />
+        </div>
+        <button onClick={toggleTheme} style={{
+          padding: '5px 10px',
+          backgroundColor: isDarkMode ? '#FFF' : '#333',
+          color: isDarkMode ? '#333' : '#FFF',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
+          marginRight: '3vw'
+        }}>
+          {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+        </button>
       </div>
+
       {/* Hero Section */}
       <div className="hero-section" style={{
         padding: '50px 20px',
-        backgroundColor: '#F8FAFC',
         textAlign: 'center',
         width: '100%'
       }}>
@@ -71,7 +102,7 @@ function ComingSoon() {
         </button>
       </div>
 
-      {/* Informational Cards with Orange Outlines */}
+      {/* Informational Cards */}
       <div style={{
         display: 'flex',
         justifyContent: 'center',
@@ -92,18 +123,18 @@ function ComingSoon() {
             borderRadius: '10px',
             textAlign: 'center',
             width: '200px',
-            border: '2px solid #E76F51', // Orange border for each card
+            border: '2px solid #E76F51',
             boxSizing: 'border-box',
           }}>
             <img src={card.imgSrc} alt={card.title} style={{ width: '100%', borderRadius: '10px' }} />
-            <h3 style={{ color: '#ffff', marginTop: '10px' }}>{card.title}</h3>
+            <h3 style={{ color: isDarkMode ? '#FFF' : '#333', marginTop: '10px' }}>{card.title}</h3>
           </div>
         ))}
       </div>
 
       {/* Form Section */}
       <div className="form-section" style={{ maxWidth: '600px', margin: '20px auto', padding: '30px' }}>
-        <h3 style={{ color: '#ffff', fontWeight: 'bold', marginBottom: '10px', textAlign: 'center' , marginBottom: '15px'}}>
+        <h3 style={{ color: isDarkMode ? '#FFF' : '#000', fontWeight: 'bold', marginBottom: '15px', textAlign: 'center', marginTop: '5px'}}>
           Stay in the know
         </h3>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -151,7 +182,7 @@ function ComingSoon() {
       </div>
 
       {/* Scrolling Banner with Icons */}
-      <div style={{
+        <div style={{
         backgroundColor: '#E76F51',
         paddingTop: '20px',
         paddingBottom: '20px',
@@ -191,7 +222,6 @@ function ComingSoon() {
           </div>
         </div>
       </div>
-
       {/* Keyframes and Media Queries */}
       <style>
         {`
@@ -202,67 +232,23 @@ function ComingSoon() {
 
           /* Media Queries for Responsive Design */
           @media (max-width: 768px) {
-            h1 {
-              font-size: 2em;
-            }
-            
-            h3 {
-              font-size: 1em;
-            }
-
-            .hero-section p {
-              font-size: 1em;
-            }
-
-            .button {
-              font-size: 0.9em;
-              padding: 8px 16px;
-            }
-
-            .informational-card {
-              width: 150px;
-              padding: 15px;
-            }
-
-            .header-logo {
-              font-size: 1.2em;
-            }
-
-            .form-section {
-              padding: 20px;
-            }
+            h1 { font-size: 2em; }
+            h3 { font-size: 1em; }
+            .hero-section p { font-size: 1em; }
+            .button { font-size: 0.9em; padding: 8px 16px; }
+            .informational-card { width: 150px; padding: 15px; }
+            .header-logo { font-size: 1.2em; }
+            .form-section { padding: 20px; }
           }
 
           @media (max-width: 480px) {
-            h1 {
-              font-size: 1.8em;
-            }
-
-            h3 {
-              font-size: 0.9em;
-            }
-
-            .hero-section p {
-              font-size: 0.9em;
-            }
-
-            .button {
-              font-size: 0.8em;
-              padding: 6px 12px;
-            }
-
-            .informational-card {
-              width: 130px;
-              padding: 10px;
-            }
-
-            .header-logo {
-              font-size: 1em;
-            }
-
-            .form-section {
-              padding: 15px;
-            }
+            h1 { font-size: 1.8em; }
+            h3 { font-size: 0.9em; }
+            .hero-section p { font-size: 0.9em; }
+            .button { font-size: 0.8em; padding: 6px 12px; }
+            .informational-card { width: 130px; padding: 10px; }
+            .header-logo { font-size: 1em; }
+            .form-section { padding: 15px; }
           }
         `}
       </style>
@@ -271,4 +257,3 @@ function ComingSoon() {
 }
 
 export default ComingSoon;
-
